@@ -1,19 +1,19 @@
 const inquirer = require('inquirer');
 const jest = require('jest');
-const { writeFile } = require('fs/promises');
+const fs = require('fs');
+const Circle = require('./lib/circle');
+const Square = require('./lib/square');
+const Triangle = require('./lib/triangle');
+const circle = new Circle;
+const square = new Square;
+const triangle = new Triangle;
 
-class Menu {
-    constructor() {
-        this.title = '';
-    }
-
-    run() {
-        return inquirer
+     inquirer
         .prompt([
             {
                 type: 'input',
                 name: 'text',
-                message: 'Enter text for the logo. (Must not be more than 2 characters.)'
+                message: 'Enter text for the logo. (Must not be more than 3 characters.)'
             },
             {
                 type: 'input',
@@ -21,10 +21,10 @@ class Menu {
                 message: 'Enter a text color or hexadecimal number.'
             },
             {
-                type: 'input',
+                type: 'list',
                 name: 'shape',
                 message: 'Select a shape for the logo.',
-                choices: ['circle', 'square', 'triangle']
+                choices: ["circle", "square", "triangle"]
             },
             {
                 type: 'input',
@@ -32,24 +32,34 @@ class Menu {
                 message: 'Enter a shape color or hexadecimal number.'
             }
         ])
-            .then((answers) => {
-                const generateSVG = generateLogo(answers);
-            
-                fs.writeFile('logo.svg', generateSVG, (err) =>
-                  err ? console.log(err) : console.log('Generated logo.svg.')
-                );
+        .then((data) => {
+            if(data.shape === "circle"){
+                fs.writeFileSync("./dist/logo.svg", `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300" height="200">
+
+                <${data.shape} cx="150" cy="100" r="80" fill="${data.shapeColor}"/>
+              
+                <text x="150" y="125" font-size="60" text-anchor="middle" fill="${data.textColor}">${data.text}</text>
+              
+              </svg>`)
+            }
+         else if (data.shape === "square"){
+            fs.writeFileSync("./dist/logo.svg", `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300" height="200">
+
+            <${data.shape} x="75" y="25" width="150" height="150" fill="${data.shapeColor}"/>
+          
+            <text x="150" y="125" font-size="60" text-anchor="middle" fill="${data.textColor}">${data.text}</text>
+          
+          </svg>`)
+        } else if (data.shape === "triangle") {
+            fs.writeFileSync("./dist/logo.svg", `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300" height="200">
+
+            <${data.shape} points="150, 18 244, 182 56, 182"" fill="${data.shapeColor}"/>
+          
+            <text x="150" y="160" font-size="60" text-anchor="middle" fill="${data.textColor}">${data.text}</text>
+          
+          </svg>`)
+        }
+        console.log('Generated logo.svg')
+    
         })
-    }
-}
-
-const generateLogo = 
-
-// function writeFile() {
-//     return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
-
-//     <circle cx="150" cy="100" r="80" fill="green" />
-  
-//     <text x="150" y="125" font-size="60" text-anchor="middle" fill="white">SVG</text>
-  
-//   </svg>`
-// }
+    
