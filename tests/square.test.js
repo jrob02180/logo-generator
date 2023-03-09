@@ -2,6 +2,7 @@ const Square = require("../lib/square");
 
 const square = new Square("square", "blue", "SVG", "white");
 
+// test for square class
 describe("square", () => {
     describe("Properties of square", () => {
         test("Test shape properties", () => {

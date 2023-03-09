@@ -2,6 +2,7 @@ const Shape = require("../lib/shapes");
 
 const shape = new Shape("circle", "yellow", "JLR", "purple");
 
+// test for shape class
 describe("shape", () => {
   describe("Properties of shape", () => {
     test("Test shape properties", () => {

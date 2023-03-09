@@ -2,6 +2,7 @@ const Triangle = require("../lib/triangle");
 
 const triangle = new Triangle("triangle", "blue", "SvG", "pink");
 
+// test for triangle class
 describe("triangle", () => {
     describe("Properties of triangle", () => {
         test("Test shape properties", () => {

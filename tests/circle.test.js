@@ -2,6 +2,7 @@ const Circle = require("../lib/circle");
 
 const circle = new Circle("circle", "orange", "sVg", "black");
 
+// test for circle class
 describe("circle", () => {
     describe("Properties of circle", () => {
         test("Test shape properties", () => {
